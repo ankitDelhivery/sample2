@@ -1,5 +1,6 @@
 package org.delhivery.Application;
 
+import org.delhivery.Domain.Employee;
 import org.delhivery.Domain.Quote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +28,14 @@ public class Application {
     @Bean
     public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
         return args -> {
-            String url = "http://localhost:8080/greeting?name=dailywage";
+            String url = "http://localhost:8080/greeting?name=Mark";
             Quote quote = restTemplate.getForObject(url, Quote.class);
-            log.info(quote.toString());
+
+            String url2 = "http://localhost:8080/getEmployee?id=3&name=Mark&role=CEO";
+            Employee employee = restTemplate.getForObject(url2, Employee.class);
+
+            System.out.println(quote.toString()+"\n"+employee.toString());
+            log.info(quote.toString()+"\n"+employee.toString());
         };
     }
 }
